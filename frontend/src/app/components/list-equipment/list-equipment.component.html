@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="inner-main">
+        <h3>Equipment List</h3>
+        <div class="form-group" >
+            <label>Assignment</label>
+            <select [disabled]="!this.authService.isAdmin" [(ngModel)]="assignment" class="custom-select form-control"
+                (change)="updateAssignment()">
+                <option value="all">All</option>
+                <option *ngFor="let user of userList" value="{{user._id}}">
+                    {{user.name}}
+                </option>
+            </select>
+        </div>
+
+        <div *ngIf="this.authService.isAdmin" class="form-group text-center">
+            <a class="btn btn-primary" routerLinkActive="active" routerLink="/create-equipment">Add</a>
+        </div>
+        <p *ngIf="Equipment.length <= 0" class="no-data text-center">There is no Equipment yet!</p>
+
+        <!-- Equipment list -->
+        <div class="table-responsive">
+            <table class="table table-bordered" *ngIf="Equipment.length > 0">
+                <thead class="table-success">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col" *ngIf="this.authService.isAdmin" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let equip of Equipment; let i = index">
+                        <th scope="row">{{i+1}}</th>
+                        <td><a [routerLink]="['/view-equipment/', equip._id]">{{equip.name}}</a></td>
+
+                        <td *ngIf="this.authService.isAdmin" class="text-center">
+                            <button [routerLink]="['/edit-equipment/', equip._id]" type="button"
+                                class="btn btn-success btn-sm mr-1">Edit</button>
+                            <button (click)="deleteEquipment(equip, i)" type="button"
+                                class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

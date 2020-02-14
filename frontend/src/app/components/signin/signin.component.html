@@ -1,0 +1,27 @@
+<div class="auth-wrapper">
+    <form class="form-signin" [formGroup]="signinForm" (ngSubmit)="loginUser()">
+        <h3 class="h3 mb-3 font-weight-normal text-center">Please sign in</h3>
+        <div class="form-group">
+            <label [ngClass]="{'error': submitted && myForm.email.errors}">Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="Enter email"
+                [ngClass]="{'error': submitted && myForm.email.errors}">
+            <!-- error block -->
+            <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.required">
+                <sup>*</sup>Please enter your email
+            </div>
+            <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.pattern">
+                <sup>*</sup>Please enter valid email
+            </div>
+        </div>
+        <div class="form-group">
+            <label [ngClass]="{'error': submitted && myForm.password.errors}">Password</label>
+            <input type="password" class="form-control" formControlName="password" placeholder="Password"
+                [ngClass]="{'error': submitted && myForm.password.errors}">
+            <!-- error block -->
+            <div class="invalid-feedback" *ngIf="submitted && myForm.password.errors">
+                <sup>*</sup>Please enter password
+            </div>
+        </div>
+        <button type="submit" class="btn btn-block btn-primary">Sign in</button>
+    </form>
+</div>

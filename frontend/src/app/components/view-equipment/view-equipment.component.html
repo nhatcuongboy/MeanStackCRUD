@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="inner-main">
+        <h3 class="mb-4">Detail</h3>
+        <h3 style="color: blue;">{{Equipment.name}}</h3>
+
+        <div class="d-flex flex-wrap pt-2 pb-3">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1280px-No_image_3x4.svg.png"
+                alt="Equipment image" width="30%" class="mr-4">
+            <div>
+                <h5>Status: 
+                    <strong style="color: red;" *ngIf="Equipment.status==='new'; else old">New</strong>
+                    <ng-template #old>
+                        <strong style="color: red;">Old</strong>
+                    </ng-template>
+                </h5>
+                <h5 class="pt-2 pb-2">Type:
+                    <strong style="color: red;" *ngIf="Equipment.type==='pc'; else laptop">PC</strong>
+                    <ng-template #laptop>
+                        <strong style="color: red;">Laptop</strong>
+                    </ng-template>
+                </h5>
+                <h5>Assignment: <strong style="color: red;">{{Equipment.assign}}</strong></h5>
+                <button *ngIf="this.authService.isAdmin&&this.Equipment.assign!=='Nobody'" (click)="deleteAssignment(Equipment)" type="button"
+                    class="btn btn-danger btn-sm">Unassign</button>
+            </div>
+        </div>
+
+        <div class="pb-3">
+            <h4>Description</h4>
+            <p>{{Equipment.description}}</p>
+        </div>
+        <button *ngIf="this.authService.isAdmin" [routerLink]="['/edit-equipment/', Equipment._id]" type="button"
+            class="btn btn-success btn-sm mr-1">Edit</button>
+
+
+    </div>
+</div>

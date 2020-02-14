@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="inner-main">
+        <form class="form-signin" [formGroup]="signupForm" (ngSubmit)="registerUser()">
+            <h3 *ngIf="!this.authService.isAdmin; else add" class="h3 mb-3 font-weight-normal text-center">Please sign up
+            </h3>
+            <ng-template #add>
+                <h3 class="h3 mb-3 font-weight-normal text-center">Add user</h3>
+            </ng-template>
+            <div class="form-group">
+                <label [ngClass]="{'error': submitted && myForm.name.errors}">Name</label>
+                <input type="text" class="form-control" formControlName="name" placeholder="Enter name"
+                    [ngClass]="{'error': submitted && myForm.name.errors}">
+                <div class="invalid-feedback" *ngIf="submitted && myForm.name.errors">
+                    <sup>*</sup>Name must from 3 character
+                </div>
+            </div>
+            <div class="form-group">
+                <label [ngClass]="{'error': submitted && myForm.email.errors}">Email address</label>
+                <input type="email" class="form-control" formControlName="email" placeholder="Enter email"
+                    [ngClass]="{'error': submitted && myForm.email.errors}">
+                <!-- error block -->
+                <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.required">
+                    <sup>*</sup>Please enter your email
+                </div>
+                <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.pattern">
+                    <sup>*</sup>Please enter valid email
+                </div>
+            </div>
+            <div formGroupName="PasswordValidation">
+                <div class="form-group">
+                    <label
+                        [ngClass]="{'error': submitted && myForm.PasswordValidation.controls.password.errors}">Password</label>
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password"
+                        [ngClass]="{'error': submitted && myForm.PasswordValidation.controls.password.errors}">
+                    <!-- error block -->
+                    <div class="invalid-feedback"
+                        *ngIf="submitted && myForm.PasswordValidation.controls.password.errors">
+                        <sup>*</sup>Please enter password
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label
+                        [ngClass]="{'error': submitted && myForm.PasswordValidation.controls.repeatpassword.errors}">Repeat-Password</label>
+                    <input type="password" class="form-control" formControlName="repeatpassword"
+                        placeholder="Repeat Password"
+                        [ngClass]="{'error': submitted && myForm.PasswordValidation.controls.repeatpassword.errors}">
+                    <!-- error block -->
+                    <div class="invalid-feedback"
+                        *ngIf="submitted && myForm.PasswordValidation.controls.repeatpassword.errors">
+                        <sup>*</sup>Password mismatch
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Roles</label>
+                <select formControlName="roles" class="form-control">
+                    <option value="user">User</option>
+                    <option value="administrator">Administrator</option>
+                </select>
+            </div>
+            <button *ngIf="!this.authService.isAdmin; else submit" type="submit" class="btn btn-block btn-primary">Sign up</button>
+            <ng-template #submit>
+                <button type="submit" class="btn btn-block btn-primary">Add</button>
+            </ng-template>
+        </form>
+    </div>
+</div>

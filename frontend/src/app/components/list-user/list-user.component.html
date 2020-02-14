@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="inner-main">
+        <h3>User List</h3>
+        <a class="btn btn-outline-primary mt-2 mb-2" routerLinkActive="active" routerLink="/sign-up">Add user</a>
+        <div class="table-responsive">
+            <table class="table table-bordered" *ngIf="userList.length > 0">
+                <thead class="table-success">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Roles</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of userList; let i = index">
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.roles}}</td>
+                        <td>
+                            <div class="d-flex">
+
+                                <button [disabled]="user.roles==='administrator'" (click)="deleteUser(user, i)"
+                                    type="button" class="btn btn-danger btn-sm">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
