@@ -13,7 +13,18 @@ const createEquipment = (req, res, next) => {
 
 // List Equipment
 const listEquipment = (req, res) => {
-  Equipment.find((error, data) => {
+  // Equipment.find((error, data) => {
+  //   if (error) {
+  //     return next(error);
+  //   } else {
+  //     res.json(data);
+  //   }
+  // });
+  Equipment.aggregate([
+    { $sort: { name: 1 } },
+    // { $limit: 2 },
+    // { $unwind: "$assign" },
+  ]).exec((error, data) => {
     if (error) {
       return next(error);
     } else {

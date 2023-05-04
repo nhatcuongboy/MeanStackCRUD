@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import dbConfig from "@/database/mongo.database";
 import authApi from "@/routes/auth.route";
 import equipmentApi from "@/routes/equipment.route";
-import authorize from "@/middlewares/auth.middleware";
+import { authorize } from "@/middlewares/auth.middleware";
 
 // MongoDB conection
 mongoose.Promise = global.Promise;
