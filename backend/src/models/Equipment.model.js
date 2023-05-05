@@ -19,11 +19,13 @@ let equipmentSchema = new Schema(
       type: String,
     },
     assign: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {
     collection: "equipments",
+    timestamps: true,
   }
 );
 
